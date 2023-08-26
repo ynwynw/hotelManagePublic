@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.hotel.dao.HotelMapper">
+    <resultMap id="hotelVO" type="group.oneonetwo.hotelintelligencesystem.modules.hotel.model.vo.HotelVO" autoMapping="true">
+    </resultMap>
+    <resultMap id="hotelMap" type="group.oneonetwo.hotelintelligencesystem.modules.hotel.model.po.HotelPO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="address" column="address"/>
+        <result property="parkingLot" column="parking_lot"/>
+        <result property="otherPolicy" column="other_policy"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="introduce" column="introduce"/>
+        <result property="facilities" column="facilities"/>
+        <result property="cover" column="cover"/>
+        <result property="badge" column="badge"/>
+        <result property="sort" column="sort"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="allowIsolation" column="allow_isolation"/>
+    </resultMap>
+
+    <select id="getPageWithDistance" resultType="group.oneonetwo.hotelintelligencesystem.modules.hotel.model.vo.HotelVO">
+        SELECT
+        *
+        FROM
+        (
+            SELECT *,ST_Distance_Sphere(point(longitude,latitude),point(${vo.longitude},${vo.latitude}))distance
+            FROM hotel
+            where longitude &lt;= ${vo.maxLongitude} and longitude &gt;= ${vo.minLongitude} and latitude &lt;= ${vo.maxLatitude} and longitude &gt;= ${vo.minLatitude}
+        ) h
+        <where>
+            <if test="vo.name != null and vo.name != ''">
+                and h.name like concat('%',${vo.name},'%')
+            </if>
+            <if test="vo.address != null and vo.address != ''">
+                and h.address like concat('%',${vo.address},'%')
+            </if>
+            <if test="vo.allowIsolation != null">
+                and h.allow_isolation = ${vo.allowIsolation}
+            </if>
+        </where>
+        order by distance asc,sort asc,id
+    </select>
+
+</mapper>

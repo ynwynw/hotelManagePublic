@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.room_type.dao.RoomTypeMapper">
+    <resultMap id="roomTypeVO" type="group.oneonetwo.hotelintelligencesystem.modules.room_type.model.vo.RoomTypeVO">
+    </resultMap>
+    <resultMap id="roomTypeMap" type="group.oneonetwo.hotelintelligencesystem.modules.room_type.model.po.RoomTypePO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hotelId" column="hotel_id"/>
+        <result property="bedType" column="bed_type"/>
+        <result property="bed" column="bed"/>
+        <result property="maxLoad" column="max_load"/>
+        <result property="haveWindow" column="have_window"/>
+        <result property="network" column="network"/>
+        <result property="haveBreakfast" column="have_breakfast"/>
+        <result property="media" column="media"/>
+        <result property="rushroomSupporting" column="rushroom_supporting"/>
+        <result property="foodRelated" column="food_related"/>
+        <result property="otherFee" column="other_fee"/>
+        <result property="cover" column="cover"/>
+        <result property="sort" column="sort"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isolationFee" column="isolation_fee"/>
+
+    </resultMap>
+
+    <select id="currentRoomTypeList" resultType="group.oneonetwo.hotelintelligencesystem.modules.room_type.model.vo.RoomTypeVO">
+        select *
+        from room_type
+        where id in (
+                        select type
+                        from room
+                        where hotel_id = #{id} and `status` = 0 and is_deleted = 0
+                        <if test="isIsolation != null and (isIsolation == 0 or isIsolation == 1)">
+                            and is_isolation = #{isIsolation}
+                        </if>
+                        group by type
+                     )
+        and is_deleted = 0
+
+
+    </select>
+
+
+
+</mapper>

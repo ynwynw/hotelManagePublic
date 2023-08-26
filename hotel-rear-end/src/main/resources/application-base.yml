@@ -1,0 +1,89 @@
+spring:
+  redis:
+    host: ## 你家服务器地址(本机则填127.0.0.1) ##
+    password: ## 你家redis密码 ##
+    port: ## 你家redis端口号,默认6379 ##
+  datasource:
+    username: ## 你家数据库密码 ##
+    password: ## 你家数据库密码 ##
+    url: jdbc:mysql://## 数据库地址 ##:## 数据库端口号 ##/## 数据库名称 ##?useAffectedRows=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  sql:
+    init:
+      mode: never
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: /data/temp
+  mail:
+    host: ## 邮箱域名,QQ邮箱为smtp.qq.com,其他自行baidu或者google ##
+    username: ## 邮箱名 ##
+    password: ## 服务密码 ##
+    senderName: 防疫酒店管控系统-1
+email-group:
+  configs:
+    mail-0:
+      host: ## 邮箱域名,QQ邮箱为smtp.qq.com,其他自行baidu或者google ##
+      username: ## 邮箱名 ##
+      password: ## 服务密码 ##
+      senderName: 防疫酒店管控系统-1
+    mail-1:
+      host: ## 邮箱域名,QQ邮箱为smtp.qq.com,其他自行baidu或者google ##
+      username: ## 邮箱名 ##
+      password: ## 服务密码 ##
+      senderName: 防疫酒店管控系统-2
+
+
+
+mybatis-plus:
+  configuration:
+    # 驼峰
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 未删除
+      logic-not-delete-value: 0
+      # 删除
+      logic-delete-value: 1
+      # id类型
+      id-type: id_worker_str
+
+# token配置
+jwt:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌秘钥
+  secret: 12d8sxsm+xswxyy+2d8sxswxyybmaik/2dwzmztbdwtb/3rggdxfnjppspaparggdxfnjppspapapa+hbgwjybqyl+++++
+  # 令牌有效期（默认30分钟）
+  expireTime: 7200000
+  token-prefix: Bearer
+  iss: tomato
+  roleClaims: rol
+server:
+  port: 8080
+  tomcat:
+    basedir: /data/temp
+
+qiniuyun:
+  ak: ## 七牛云ak ##
+  sk: ## 七牛云sk ##
+  bucket: ## 云空间名 ##
+  domain: ## 域名 ##
+
+alipay:
+  appId: ## 你的appId ##
+  gateway: https://openapi.alipaydev.com/gateway.do
+  privateKey: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDOtFzrzbYfvU8WPeQ1NIyMH5JsGsFZJVb4vz+7Gx6DLFyGDOFw5c3pjFzT/yxFC+5WxMQ7j4ojeFB124zZY5cwwKIntoE6rUWnI1SmA2QxFcjtFpssM2Mh4DLTQ7YpjUIHaVwbEcrSYYpvluZaoBs6nAbqoYRsFsSguEwYy89fKy1v0W9BVZpZ4bCrS8CMpY+tnKinbpXD6lPr1ApwrWBMb2Mnt1ISscL7lbHhOUZqCBPqMiFZDHxqgAW4Hd9SWKLWN1wuAJ37EI4dxqqU8IMEXO6+wrkuIULUd6NtaOIJZQ5bYsAUzpEqco2Io+LmlK1A/4VjNeAwx/nfd++VNC77AgMBAAECggEBAMyBlg2WkUIFwmF3Cnm5a/SWp/9c2T6hutKQJTWxNxcApOnbhJB2TKtsu8rjA6GslDo0oxFqinldZ/2zIj9SURti+wvffSvYkrkyM2WspUwLCafIXe31SXcSojZzH58sqs86Zm5BxDExYA3XdkDjdw0doZoyAxoNzKxWqrM9sgWsoMuZVj46WO+IKKUmnb3FT3mN7VDha42tFR2wJj0hZ296e23WxKcSwRr+rkBlojsh2tbQkfUOS0TemQaq+nNEx2TjPuBuO7WuyuKtrirVXky6mmappMaXf1Idj65TWleZRwSqUPcVpECvI7FUe4GIgEFjmIq4VkI6tbj07thewYECgYEA/t1su4D3p29zr5cv3pK27On868r814prdrVfyKPd4urmiekJftICw7Qv8BP/3qWjkHsESqEsk5mJU4J/3EHE1SZtrMu1E9x7cKa8NXQUoXf6dUKG+kZ2J85Hh+hDnxgXa2NAOKuqH++8K0+YD+21m5wsZQ4WrwmKUFJ3sFGQijMCgYEAz6AHpOhyUyYvXp0ZD2kRvPP1v9W4uskMg4fcUMhDfC1hIl0meMTW445GrAr9ch/I5mOKyql4f1cJVwBhRM0M/H1d9sCm9oltGBb0qQVtxQzOuKazKB15HTJ7pxzGeJAh1ULshvaGN7gHsuv6Hf7TP7gz9arPRufQQCK8r8g+kBkCgYEAjK8NZjM6gWI0Kaj685FpCD3hLwdNqmzuBQj5ZneN88RWnanVY/vpKr479/oSM4SbVRWSuN9fC9qkw0Q18A8d58ren5OS0PPT78sZ+Seqe7cOucuPVneuoSpssci0Cw3xX4XZ3W5k6lwbMo0tEx3UMaFzoBS20MgjYVMkXl+nuaECgYBsZfiXuGQ31S/WDd8PlKOWKyiax1Jy8pR992inJGdXZbnY3xk+5EXs+FMdb39zHfUdk8ralDA9C4vsyF4ANa4aBLoSIfMJtCYo9ZM2y4bL4ivra90NjJW3EKxOS0+zkkyXsyEaNYtNe99JIrqq/mf8VIeMM2mUc2LemUQ54ioHwQKBgQDayaDzgn0sbHJl6yFwFkD3IVI6eRsItFcOzPbnymbySo1BCSD/37p30kgF0VxIF+tMIHUWU/GjB+W8YhhIuJwZfEBzJ8yVKXjT0KDEZFdIFHUmtpVUPGgUvAG52NamYaIgknho5oKorn8iy6De5cujxDwZeeu+onmkrXTtIyxAbQ==
+  format: json
+  charset: utf-8
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjtDEG8LjRpBzsQlIOco0YCdgZnDDPDI9UWbGfXoOAuLU3vaQPWoEZBp+2tDNodEwrpBdsHZlAgwsaIi7cpLLA8Qewls6SdRS9nI7FiBaBBiSI8eN5snP5JhqD7yzUOg1QdJIDDNCd5iK1ktZFXs+pm4+l+fJWqJv/Nj8UJEQJiTeXIZSgZjG+J3dZMHtDm1tFqUUh5aE9L8+G4L58HC2KWf6SpuZ/5sjHfL/mN6ojHrI1o2cEzv0zQn/+viiZbOn7weAUQkSdZ+2G3ZlvogAwsPxPnls3E8tFoMdle7G1DMeP5+U4lwSB1mavia9qapXJEmGYs0NbD5pjj6KTHemfwIDAQAB
+  signType: RSA2
+
+
+

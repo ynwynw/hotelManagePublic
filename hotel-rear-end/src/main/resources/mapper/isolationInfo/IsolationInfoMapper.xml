@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.isolationInfo.dao.IsolationInfoMapper">
+
+    <resultMap id="BaseResultMap" type="group.oneonetwo.hotelintelligencesystem.modules.isolationInfo.model.po.IsolationInfoPO">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="idCard" column="id_card" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="hotelId" column="hotel_id" jdbcType="VARCHAR"/>
+            <result property="roomType" column="room_type" jdbcType="VARCHAR"/>
+            <result property="pay" column="pay" jdbcType="INTEGER"/>
+            <result property="checkInTime" column="check_in_time" jdbcType="TIMESTAMP"/>
+            <result property="checkOutTime" column="check_out_time" jdbcType="TIMESTAMP"/>
+            <result property="roomId" column="room_id" jdbcType="VARCHAR"/>
+            <result property="roomName" column="room_name" jdbcType="VARCHAR"/>
+            <result property="province" column="province" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="way" column="way" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,id_card,
+        type,phone,email,status,
+        hotel_id,room_type,pay,
+        check_in_time,check_out_time,room_id,
+        room_name,province,city,way,
+        is_deleted,create_by,create_time,
+        update_by,update_time
+    </sql>
+
+    <select id="getPage" resultType="group.oneonetwo.hotelintelligencesystem.modules.isolationInfo.model.vo.IsolationInfoVO">
+        select ii.*,h.name hotelName ,ro.name roomTypeName from isolation_info ii
+        left join hotel h
+            on ii.hotel_id=h.id
+        left join room_type ro
+            on ii.room_type = ro.id
+        <where>
+        <if test="vo.beginTime != null and vo.beginTime != '' and vo.endTime != null and vo.endTime != ''">
+            and ii.check_in_time between #{vo.beginTime} and #{vo.endTime} or ii.check_out_time between #{vo.beginTime} and #{vo.endTime}
+        </if>
+        <if test="vo.type != null and vo.type != ''">
+            and ii.type = #{vo.type}
+        </if>
+        <if test="vo.province != null and vo.province != ''">
+            and  ii.province like concat('%', #{vo.province}, '%') or  ii.city like concat('%', #{vo.province}, '%')
+        </if>
+        <if test="vo.status != null and vo.status != ''">
+            and  ii.status = #{vo.status}
+        </if>
+        <if test="vo.uId != null and vo.uId != ''">
+            and  ii.u_id = #{vo.uId}
+        </if>
+            and ii.is_deleted = 0
+        </where>
+        order by ii.create_time DESC
+    </select>
+
+    <select id="getAllList" resultType="group.oneonetwo.hotelintelligencesystem.modules.isolationInfo.model.vo.IsolationInfoVO">
+        select ii.*,h.name hotelName ,ro.name roomTypeName from isolation_info ii
+        left join hotel h
+        on ii.hotel_id=h.id
+        left join room_type ro
+        on ii.room_type = ro.id
+        <where>
+            <if test="vo.beginTime != null and vo.beginTime != '' and vo.endTime != null and vo.endTime != ''">
+                and ii.check_in_time between #{vo.beginTime} and #{vo.endTime} or ii.check_out_time between #{vo.beginTime} and #{vo.endTime}
+            </if>
+            <if test="vo.type != null and vo.type != ''">
+                and ii.type = #{vo.type}
+            </if>
+            <if test="vo.province != null and vo.province != ''">
+                and  ii.province like concat('%', #{vo.province}, '%') or  ii.city like concat('%', #{vo.province}, '%')
+            </if>
+            <if test="vo.status != null and vo.status != ''">
+                and  ii.status = #{vo.status}
+            </if>
+           and ii.is_deleted = 0
+        </where>
+        order by ii.create_time DESC
+
+    </select>
+
+
+</mapper>

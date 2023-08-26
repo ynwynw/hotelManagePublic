@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.bed_type.dao.BedTypeMapper">
+    <resultMap id="bedTypeVO" type="group.oneonetwo.hotelintelligencesystem.modules.bed_type.model.vo.BedTypeVO">
+    </resultMap>
+    <resultMap id="bedTypeMap" type="group.oneonetwo.hotelintelligencesystem.modules.bed_type.model.po.BedTypePO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="specification" column="specification"/>
+        <result property="maxLoad" column="max_load"/>
+        <result property="hardness" column="hardness"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="hotelId" column="hotel_id"/>
+    </resultMap>
+</mapper>

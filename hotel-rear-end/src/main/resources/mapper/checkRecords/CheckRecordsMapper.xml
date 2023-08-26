@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.checkRecords.dao.CheckRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="group.oneonetwo.hotelintelligencesystem.modules.checkRecords.model.po.CheckRecordsPO">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+            <result property="checkType" column="check_type" jdbcType="INTEGER"/>
+            <result property="checkRes" column="check_res" jdbcType="DOUBLE"/>
+            <result property="checkTime" column="check_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,u_id,check_type,
+        check_res,check_time,create_time,
+        create_by,update_time,update_by,
+        is_deleted
+    </sql>
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into check_records(<include refid="Base_Column_List"></include>)
+        values
+        <foreach collection="list" item="item" separator="," index="index" >
+            (#{item.id},#{item.uId},#{item.checkType},#{item.checkRes},#{item.checkTime},#{item.createTime},#{item.createBy},#{item.updateTime},#{item.updateBy},0)
+        </foreach>
+    </insert>
+
+    <select id="getPages" resultType="group.oneonetwo.hotelintelligencesystem.modules.checkRecords.model.vo.CheckRecordsVO">
+        select ch.*,iss.id_card idCard,iss.`name` name
+        from check_records ch
+        left join isolation_info iss
+        on ch.u_id=iss.id
+        <where>
+            <if test="vo.beginTime != null and vo.beginTime != '' and vo.endTime != null and vo.endTime != ''">
+                and ch.check_time between #{vo.beginTime} and #{vo.endTime}
+            </if>
+            <if test="vo.checkType != null and vo.checkType != ''">
+                and ch.check_type = #{vo.checkType}
+            </if>
+            <if test="vo.checkRes != null and vo.checkRes != ''">
+               <if test="vo.checkRes == '1.0' or vo.checkRes == 1.0">
+                   and ((ch.check_type = 0 and ch.check_res &lt; 37.3) or (check_type = 1 and ch.check_res = 0.0))
+               </if>
+               <if test="vo.checkRes == '2.0' or vo.checkRes == 2.0">
+                   and (ch.check_res &gt;= 37.3 or ch.check_res = 1.0)
+               </if>
+            </if>
+            <if test="vo.uId != null and vo.uId != ''">
+                and ch.u_id = #{vo.uId}
+            </if>
+            <if test="vo.name != null and vo.name != ''">
+                and iss.name like concat('%',#{vo.name},'%')
+            </if>
+            and ch.is_deleted = 0
+        </where>
+        order by ch.create_time DESC
+    </select>
+</mapper>

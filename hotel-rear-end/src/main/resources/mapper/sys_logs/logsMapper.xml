@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.dao.LogsMapper">
+    <resultMap id="logsVO" type="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.model.vo.LogsVO"></resultMap>
+    <resultMap id="logsMap" type="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.model.po.LogsPO">
+        <result property="id" column="id"/>
+        <result property="sketch" column="sketch"/>
+        <result property="detail" column="detail"/>
+        <result property="type" column="type"/>
+        <result property="roleLevel" column="role_level"/>
+        <result property="hotelId" column="hotel_id"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+
+    <sql id="baseSql">
+       select sl.id,sl.sketch,sl.detail,sl.type,sl.role_level,sl.is_deleted,sl.create_time,u.username as 'create_by'
+        from sys_logs sl
+        left join (select id,username from user)u
+        on sl.create_by = u.id
+    </sql>
+
+    <select id="getPage" resultType="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.model.vo.LogsVO">
+        <include refid="baseSql"/>
+        <where>
+            <if test="vo.role == 'admin'">
+                and sl.role_level >= 0
+            </if>
+            <if test="vo.role == 'hotel_admin'">
+                and sl.role_level >= 1
+            </if>
+            <if test="vo.role == 'hotel_member'">
+                and sl.role_level >= 2
+            </if>
+            <if test="vo.role == null or vo.role == 'member'">
+                and sl.role_level >= 999
+            </if>
+            <if test="vo.hotelId != null and vo.hotelId != ''">
+                and sl.hotel_id = #{vo.hotelId}
+            </if>
+            <if test="vo.type != null and vo.type != ''">
+                and sl.type = #{vo.type}
+            </if>
+            <if test="vo.sketch != null and vo.sketch != ''">
+                and sl.sketch like concat('%', #{vo.sketch}, '%')
+            </if>
+            <if test="vo.createBy != null and vo.createBy != ''">
+                and u.username like concat('%', #{vo.createBy}, '%')
+            </if>
+            <if test="vo.beginTime != null and vo.beginTime != '' and vo.endTime != null and vo.endTime != ''">
+                and sl.create_time between #{vo.beginTime} and #{vo.endTime}
+            </if>
+            and sl.is_deleted = 0
+        </where>
+        order by sl.create_time desc,sl.id desc
+
+    </select>
+
+    <select id="findById" resultType="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.model.vo.LogsVO">
+        <include refid="baseSql"/>
+        where sl.id = #{id} and sl.is_deleted = 0
+    </select>
+
+    <select id="getAllList" resultType="group.oneonetwo.hotelintelligencesystem.modules.sys_logs.model.vo.LogsVO">
+        <include refid="baseSql"/>
+        <where>
+            <if test="vo.role == 'admin'">
+                and sl.role_level >= 0
+            </if>
+            <if test="vo.role == 'hotel_admin'">
+                and sl.role_level >= 1
+            </if>
+            <if test="vo.role == 'hotel_member'">
+                and sl.role_level >= 2
+            </if>
+            <if test="vo.role == null or vo.role == 'member'">
+                and sl.role_level >= 999
+            </if>
+            <if test="vo.hotelId != null and vo.hotelId != ''">
+                and sl.hotel_id = #{vo.hotelId}
+            </if>
+            <if test="vo.type != null and vo.type != ''">
+                and sl.type = #{vo.type}
+            </if>
+            <if test="vo.sketch != null and vo.sketch != ''">
+                and sl.sketch like concat('%', #{vo.sketch}, '%')
+            </if>
+            <if test="vo.createBy != null and vo.createBy != ''">
+                and u.username like concat('%', #{vo.createBy}, '%')
+            </if>
+            <if test="vo.beginTime != null and vo.beginTime != '' and vo.endTime != null and vo.endTime != ''">
+                and sl.create_time between #{vo.beginTime} and #{vo.endTime}
+            </if>
+            and sl.is_deleted = 0
+        </where>
+        order by sl.create_time desc ,sl.id desc
+
+    </select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.oneonetwo.hotelintelligencesystem.modules.dept.dao.DeptMapper">
+     <resultMap id="deptVO" type="group.oneonetwo.hotelintelligencesystem.modules.dept.model.vo.DeptVO" autoMapping="true">
+     </resultMap>
+    <resultMap type="group.oneonetwo.hotelintelligencesystem.modules.dept.model.po.DeptPO" id="deptMap">
+         <result property="id" column="id"/>
+         <result property="name" column="name"/>
+         <result property="pId" column="p_id"/>
+         <result property="sort" column="sort"/>
+         <result property="role" column="role"/>
+         <result property="status" column="status"/>
+         <result property="isDeleted" column="is_deleted"/>
+         <result property="createBy" column="create_by"/>
+         <result property="createTime" column="create_time"/>
+         <result property="updateBy" column="update_by"/>
+         <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+     <sql id="baseSelect">
+          select * from dept
+     </sql>
+
+     <select id="getPage" resultType="group.oneonetwo.hotelintelligencesystem.modules.dept.model.vo.DeptVO">
+          <include refid="baseSelect" />
+          <where>
+               <if test="vo.pId != null and vo.pId != ''">
+                    and p_id = #{vo.pId}
+               </if>
+               and is_deleted = 0
+          </where>
+     </select>
+</mapper>

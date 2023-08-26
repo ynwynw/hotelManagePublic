@@ -1,0 +1,305 @@
+/* 修改默认样式 Start */
+html {
+    font-size: 10px;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, "Microsoft YaHei";
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+a {
+    text-decoration: none;
+}
+p {
+    margin-bottom: 0;
+}
+input {
+    outline: none;
+}
+ul {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+li {
+    list-style: none;
+}
+/*button {*/
+    /*cursor: pointer;*/
+    /*padding-bottom: 1px;*/
+/*}*/
+caption {
+    caption-side: top;
+    padding: 0;
+    color: #333333;
+}
+textarea {
+    resize: none;
+}
+/* 修改默认样式 End */
+
+
+/* 通用样式 Start */
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.overflow-auto {
+    overflow: auto!important;
+}
+.radius-circle {
+    border-radius: 50%;
+}
+.cursor {
+    cursor: pointer;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.d-flex {
+    display: -webkit-flex;
+    display: flex;
+}
+.align-items-start {
+    align-items: flex-start;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+.align-items-center {
+    align-items: center;
+}
+.align-items-baseline {
+    align-items: baseline;
+}
+.justify-content-start {
+    justify-content: flex-start;
+}
+.justify-content-end {
+    justify-content: flex-end;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-between {
+    justify-content: space-between;
+}
+.justify-content-around {
+    justify-content: space-around;
+}
+.flex {
+    display: flex;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+.flex-column-reverse {
+    flex-direction: column-reverse;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute
+}
+/* 通用样式 Start */
+
+/* 字体样式 Start */
+.font-12 {
+    font-size: 1.2rem !important;
+}
+.font-14 {
+    font-size: 1.4rem !important;
+}
+.font-16 {
+    font-size: 1.6rem !important;
+}
+.font-18 {
+    font-size: 1.8rem !important;
+}
+.font-20 {
+    font-size: 2rem!important;
+}
+.font-22 {
+    font-size: 2.2rem !important;
+}
+.font-26 {
+    font-size: 2.6rem !important;
+}
+.font-30 {
+    font-size: 3rem!important;
+}
+/* 字体样式 End */
+
+
+/* 颜色样式 Start */
+.color-3 {
+    color: #333333 !important;
+}
+.color-6 {
+    color: #666666 !important;
+}
+.color-7 {
+    color: #777777 !important;
+}
+.color-9 {
+    color: #999999 !important;
+}
+.color-f {
+    color: #ffffff !important;
+}
+.color-79 {
+    color: #797979 !important;
+}
+.color-d {
+    color: #dddddd !important;
+}
+/* 颜色样式 End */
+
+
+
+/* 间距样式 Start */
+.m-auto {
+    margin: 0 auto;
+}
+.mt-5 {
+    margin-top: 5px;
+}
+.mr-5 {
+    margin-right: 5px;
+}
+.mb-5 {
+    margin-bottom: 5px;
+}
+.ml-5 {
+    margin-left: 5px;
+}
+.pt-5 {
+    padding-top: 5px;
+}
+.pl-5 {
+    padding-left: 5px;
+}
+.pb-5 {
+    padding-bottom: 5px;
+}
+.pr-5 {
+    padding-right: 5px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.mr-10 {
+    margin-right: 10px;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+.mb-15 {
+    margin-bottom: 15px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.pt-10 {
+    padding-top: 10px;
+}
+.pl-10 {
+    padding-left: 10px;
+}
+.pb-10 {
+    padding-bottom: 10px;
+}
+.pr-10 {
+    padding-right: 10px;
+}
+/* 间距样式 End */
+
+
+/* 宽度样式 Start */
+.w-50 {
+    width: 50px;
+}
+.w-100 {
+    width: 100px;
+}
+.w-120 {
+    width: 120px;
+}
+.w-150 {
+    width: 150px;
+}
+.w-percent-100 {
+    width: 100%;
+}
+/* 宽度样式 End */
+
+
+/* Other Start */
+.blue-label {
+    width: 3px;
+    border-radius:5px;
+    border: 2px solid #409EFF;
+    background: #409EFF;
+    margin-right: 6px
+}
+.min-w-650 {
+    min-width: 650px!important;
+}
+.min-w-300 {
+    min-width: 300px!important;
+}
+.min-w-450 {
+    min-width: 450px!important;
+}
+.order-cost {
+    box-shadow: 0 0 3px;
+}
+.order-cost p {
+    font-size: 18px;
+}
+.order-cost .el-message__content>p{
+    margin-bottom: 10px!important;
+}
+
+.global-table .el-table__cell {
+    padding: 5px 0;
+}
+.global-table .cell {
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+}
+.first-column .cell{
+    line-height: 25px;
+}
+/* Other End */
