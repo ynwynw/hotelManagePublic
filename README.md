@@ -11,7 +11,7 @@
 **毕业设计所有选题地址：
 [https://github.com/ynwynw/allProject](https://github.com/ynwynw/allProject)**
 
-## 基于Java+Springboot+Vue的酒店管理系统(源码+数据库)095
+## 基于Java+Springboot+Vue的酒店管理系统(源码+数据库+万字论文)095
 
 ## 一、系统介绍
 本系统前后端分离(网页端和app端都有)
